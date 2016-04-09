@@ -1,0 +1,53 @@
+
+
+1) How would you dump the contents of the /var/log/messages file into standard output, grep for all lines that contain 
+"Memory" and then redirect the grep'ed result to /home/user/log.txt?
+
+Correct
+Correct answer
+
+cat /var/log/messages | grep -i memory > /home/user/log.txt
+
+2) You need to search for man pages that relate to the postfix service. Which command will do this?
+
+Correct
+Correct answer
+
+whatis postfix, apropos postfix
+
+3) What command would you use to install the star utility?
+
+Correct
+Correct answer
+
+yum install star
+
+4) Which method would you use to set recursive execute permissions on the finance directory and then recursively 
+set execute permissions on directories only for all users?
+
+Correct
+Correct answer
+
+chmod a+X -R finance, chmod -R a+X finance
+
+5) How would you append the text "service=on" to the /etc/motd file?
+
+Correct
+Correct answer
+
+echo "service=on" >> /etc/motd
+
+6) chown apache:apache -R /var/www will recursively set the owner to all files and directories under /var/www/
+to apache and the group ownership to apache.
+
+Correct
+Correct answer
+
+True
+
+7) Which directory contains info files that the info program reads from?
+
+Correct
+Correct answer
+
+/usr/share/info
