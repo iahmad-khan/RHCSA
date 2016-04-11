@@ -14,7 +14,10 @@ Correct answer
 
 systemd.unit
 
-3) As part of your application buildout on your Red Hat 7 Enterprise system, you have a process that is running backend maintenance tasks. These maintenance tasks are not important and shouldn't take priority over other tasks on the system. How might you tell the system to assign CPU usage to this process only after other higher priority items have been completed or only if they do not need the CPU?
+3) As part of your application buildout on your Red Hat 7 Enterprise system, you have a process that is running 
+backend maintenance tasks. These maintenance tasks are not important and shouldn't take priority over other
+tasks on the system. How might you tell the system to assign CPU usage to this process only after other
+higher priority items have been completed or only if they do not need the CPU?
 
 Correct
 Correct answer
@@ -56,7 +59,8 @@ Correct answer
 
 systemctl -t help
 
-9) What line in the boot loader entry do you need to edit after interrupting the boot process to change the current boot target?
+9) What line in the boot loader entry do you need to edit after interrupting the boot process to change 
+the current boot target?
 
 Correct
 Correct answer
@@ -126,7 +130,9 @@ Correct answer
 
 apropos systemd
 
-19) What is the percentage load average for the following processor count and given load for the 5 minute load average? [root@localhost]# uptime 09:55:50 up 16:35, 3 users, load average: 4.05, 3.03, 3.75 [root@localhost ~]# grep "model name" /proc/cpuinfo | wc -l 5
+19) What is the percentage load average for the following processor count and given load for the 5 minute
+load average? [root@localhost]# uptime 09:55:50 up 16:35, 3 users, load average: 4.05, 3.03, 3.75 
+[root@localhost ~]# grep "model name" /proc/cpuinfo | wc -l 5
 
 Correct
 Correct answer
@@ -147,7 +153,8 @@ Correct answer
 
 man systemd.service
 
-22) If your system is currently in the graphical.target, which command(s) will move it out of the graphical.target and into the multi-user.target?
+22) If your system is currently in the graphical.target, which command(s) will move it out of the graphical.target 
+and into the multi-user.target?
 
 Correct
 Correct answer
