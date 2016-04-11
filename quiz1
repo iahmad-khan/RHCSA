@@ -1,0 +1,183 @@
+
+
+1) Which command will display all available kill signals?
+
+Correct
+Correct answer
+
+kill -l
+
+2) Which man page will show information about unit configuration files and their locations?
+
+Correct
+Correct answer
+
+systemd.unit
+
+3) As part of your application buildout on your Red Hat 7 Enterprise system, you have a process that is running backend maintenance tasks. These maintenance tasks are not important and shouldn't take priority over other tasks on the system. How might you tell the system to assign CPU usage to this process only after other higher priority items have been completed or only if they do not need the CPU?
+
+Correct
+Correct answer
+
+Set the nice priority to 19 on the process using renice, nice, or top.
+
+4) Where are the configuration files for systemd located?
+
+Correct
+Correct answer
+
+/usr/lib/systemd/system, /etc/systemd/system
+
+5) -20 is the most favorable for a given process.
+
+Correct
+Correct answer
+
+True
+
+6) The command "systemctl set-default" will set the default target for the system at boot time.
+
+Correct
+Correct answer
+
+True
+
+7) Only a privileged user can run a process with lower niceness.
+
+Correct
+Correct answer
+
+True
+
+8) Which command(s) will display available systemd unit types?
+
+Correct
+Correct answer
+
+systemctl -t help
+
+9) What line in the boot loader entry do you need to edit after interrupting the boot process to change the current boot target?
+
+Correct
+Correct answer
+
+linux16
+
+10) How do you view the disabled/enabled settings of all units with the type of service?
+
+Incorrect
+Correct answer
+
+systemctl list-unit-files --type=service
+
+11) Which command(s) will reboot the system 5 minutes from now and notify all users on the system of the impending reboot?
+
+Correct
+Correct answer
+
+shutdown -r +5 rebooting!
+
+12) Which command will create or update the manual page index caches; something you should run after installing new man pages?
+
+Correct
+Correct answer
+
+mandb
+
+13) Which command(s) will power off the system?
+
+Correct
+Correct answer
+
+poweroff, systemctl poweroff, shutdown -p
+
+14) Which "niceness" is the least favorable for a process?
+
+Correct
+Correct answer
+
+19
+
+15) systemctl halt will shut down and halt the system.
+
+Correct
+Correct answer
+
+True
+
+16) Which command(s) will move the system into the graphical.target?
+
+Correct
+Correct answer
+
+systemctl isolate graphical.target
+
+17) How can you list the active state of all loaded service unit configuration files?
+
+Correct
+Correct answer
+
+systemctl list-units --type=service
+
+18) How would you find all manage pages associated with systemd?
+
+Correct
+Correct answer
+
+apropos systemd
+
+19) What is the percentage load average for the following processor count and given load for the 5 minute load average? [root@localhost]# uptime 09:55:50 up 16:35, 3 users, load average: 4.05, 3.03, 3.75 [root@localhost ~]# grep "model name" /proc/cpuinfo | wc -l 5
+
+Correct
+Correct answer
+
+60%
+
+20) Which command(s) will show all available targets on the system?
+
+Correct
+Correct answer
+
+systemctl list-units --type=target
+
+21) Which man page will show specific configuration options for a service unit configuration?
+
+Correct
+Correct answer
+
+man systemd.service
+
+22) If your system is currently in the graphical.target, which command(s) will move it out of the graphical.target and into the multi-user.target?
+
+Correct
+Correct answer
+
+systemctl isolate multi-user.target
+
+23) How can you list all failed service unit configuration files?
+
+Correct
+Correct answer
+
+systemctl --failed --type=service
+
+24) Which command(s) will list unit configuration files that are dependencies for the network target?
+
+Correct
+Correct answer
+
+systemctl list-dependencies network.target
+
+25) Which command(s) will perform a reboot on the system?
+
+Correct
+Correct answer
+
+systemctl reboot, reboot, shutdown -r
+
+26) Which command(s) will list all service unit configuration files regardless of whether they are active or not?
+
+Correct
+Correct answer
+
+systemctl --type=service --all
