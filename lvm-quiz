@@ -14,21 +14,25 @@ Correct answer
 
 XFS
 
-3) Which command would move the physical extents off of the /dev/xvdg1 physical volume disk onto another physical volume associated with the battlestar volume group?
+3) Which command would move the physical extents off of the /dev/xvdg1 physical volume disk onto another
+physical volume associated with the battlestar volume group?
 
 Incorrect
 Correct answer
 
 pvmove /dev/xvdg1
 
-4) After using lvextend to increase the size of a logical volume, how can you modify the file system to reflect the changes? Assume the device is mounted at /mnt/myvolume and the logical volume is /dev/battlestar/galactica.
+4) After using lvextend to increase the size of a logical volume, how can you modify the file system to 
+reflect the changes? Assume the device is mounted at /mnt/myvolume and the logical volume 
+is /dev/battlestar/galactica.
 
 Correct
 Correct answer
 
 xfs_growfs /mnt/myvolume
 
-5) In Red Hat 7 EXT4, file systems have support for ACLs but will generally need the option specified during mount time.
+5) In Red Hat 7 EXT4, file systems have support for ACLs but will generally need the 
+option specified during mount time.
 
 Correct
 Correct answer
@@ -42,14 +46,17 @@ Correct answer
 
 vgextend, vgcreate
 
-7) Which of the following command(s) can be used to reduce the volume group by removing the /dev/xvdg1 partition give the volume group battlestar?
+7) Which of the following command(s) can be used to reduce the volume group by removing the /dev/xvdg1 
+partition give the volume group battlestar?
 
 Correct
 Correct answer
 
 vgreduce battlestar /dev/xvdg1
 
-8) Which of the following commands would be used to extend an existing logical volume with the name of "galactica" to a total size of 5GiB" if the current size is 1GiB" using the volume group battlestar?
+8) Which of the following commands would be used to extend an existing logical volume with the name 
+of "galactica" to a total size of 5GiB" if the current size is 1GiB" 
+using the volume group battlestar?
 
 Correct
 Correct answer
