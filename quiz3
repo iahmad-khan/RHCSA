@@ -1,0 +1,220 @@
+
+
+1) By default, chronyd is the default ntp deamon on a Red Hat Enterprise 7 install.
+
+Correct
+Correct answer
+
+True
+
+2) Which command and option would be used to display the current kernel version?
+
+Correct
+Correct answer
+
+uname -r
+
+3) Non-privileged users on the Linux system can schedule anacron jobs.
+
+Correct
+Correct answer
+
+False
+
+4) Which command(s) will display all documentation files associated with the pykickstart package?
+
+Correct
+Correct answer
+
+rpm -qd pykickstart
+
+5) Which yum command will display all packages on the system installed by yum?
+
+Correct
+Correct answer
+
+yum list
+
+6) Which yum command(s) will show all currently installed kernels and all available kernels for a system?
+
+Correct
+Correct answer
+
+yum info kernel, yum list kernel
+
+7) List all enabled and disabled repos on your Red Hat machine.
+
+Correct
+Correct answer
+
+yum repolist all
+
+8) Where are anacron jobs configured?
+
+Correct
+Correct answer
+
+/etc/anacron
+
+9) Select the true statement(s) given symbols as they relate to packages and groups.
+
+Correct
+Correct answer
+
+- means the package is not installed and will not be installed if the group is installed or updated, = 
+Means the package is installed and was installed as part of the group
+
+10) How do you view the status of time synchronization?
+
+Correct
+Correct answer
+
+timedatectl
+
+11) The command "systemctl set-default multi-user.target" will change the system so that your default target 
+at boot time is the multi-user.target.
+
+Correct
+Correct answer
+
+True
+
+12) The /var/www/html directory has mysteriously shown up on your system. What command could you issue to 
+determine what software package created it? Please note: this does not search your system but instead 
+searches a repository for files that are created by the package.
+
+Correct
+Correct answer
+
+yum provides /var/www/html
+
+13) You've just updated the server sources in the /etc/chrony.conf configuration file. How do you apply 
+the changes so NTP is not looking at those sources?
+
+Correct
+Correct answer
+
+systemctl restart chronyd
+
+14) If a package installed on the system needs a required cron job scheduled, where is the cron config file 
+for the package located when the package is downloaded and installed?
+
+Correct
+Correct answer
+
+/etc/cron.d/
+
+15) When removing yum packages, you cannot remove them without having the package dependencies removed 
+when the package was originally installed.
+
+Correct
+Correct answer
+
+True
+
+16) What is the best method for setting the timezone?
+
+Correct
+Correct answer
+
+Use timedatectl set-timezone
+
+17) The "at" utility wasn't installed on your Redhat distribution by default. After running yum install at, 
+you notice that the at service is not running. Which command(s) would you issue to start the service?
+
+Correct
+Correct answer
+
+systemctl start atd, systemctl restart atd
+
+18) The user "anthony" is located in the /etc/deny.cron file. This means that all users on the system 
+except anthony are denied access to use the cron utility.
+
+Correct
+Correct answer
+
+False
+
+19) Given the following group info, what packages were installed as part of the group? Group: Security 
+Tools Group-Id: security-tools Description: Security tools for integrity and trust verification. 
+Default Packages: =scap-security-guide +openscap -hmaccalc openscap-utils
+
+Correct
+Correct answer
+
+scap-security-guide
+
+20) You've installed the httpd package on your Red Hat Linux system. How might you view all available or
+associated documentation locations that were installed with the package?
+
+Correct
+Correct answer
+
+rpm -qd httpd
+
+21) A script located in the /etc/cron.daily directory will run how often?
+
+Correct
+Correct answer
+
+Once a day
+
+22) If you forget yum commands on the exam, what are multiple ways to get help?
+
+Correct
+Correct answer
+
+yum help, man yum, info yum
+
+23) Repos listed in the /etc/yum.repos.d/ must end in .repo in order for them to be recognized.
+
+Correct
+Correct answer
+
+True
+
+24) You've successfully modified the /etc/chronyd.conf configuration file to reflect a new ntp server. 
+How do you view and make sure the changes applied correctly?
+
+Correct
+Correct answer
+
+chronyc sources
+
+25) How can you determine if the httpd package is installed on a system?
+
+Correct
+Correct answer
+
+yum list installed httpd, yum list installed | grep httpd
+
+26) The tzselect command is a tool used to help "guide" you through choosing which timezone you should
+configure your server for.
+
+Correct
+Correct answer
+
+True
+
+27) Which command(s) will allow you to list all available time zones?
+
+Correct
+Correct answer
+
+timedatectl list-timezones
+
+28) Kickstart documentation files can be found where?
+
+Correct
+Correct answer
+
+/usr/share/doc
+
+29) The "at" utility wasn't installed on your Redhat distribution by default. After running yum install at, 
+you notice that the at service is not running. After starting the service you want to be sure
+that the atd service is enabled to start when the system boots. Which command(s) would you issue to enable this?
+
+Correct
+Correct answer
+
+systemctl enable atd
