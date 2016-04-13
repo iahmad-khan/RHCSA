@@ -1,0 +1,13 @@
+66  yum -y upgrade
+   67  ping ad.linuxacademy.com
+   68  hostname
+   69  ping ad.linuxacademy.com
+   70  yum -y upgrade
+   71  yum install realmd
+   72  realm discover ad.linuxacademy.com
+   73  yum install oddjob oddjob-mkhomedir sssd adcli samba-common
+   74  realm join ad.linuxacademy.com
+   75  realm discover ad.linuxacademy.com
+   76  realm permit --realm ad.linuxacademy.com --all
+   77  vi /etc/ssh/sshd_config
+   78  systemctl restart sshd
