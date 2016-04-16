@@ -1,0 +1,72 @@
+1. As the root user, create a job running in the background of your current terminal. Execute this following script for that program process to be created.
+
+[root@localhost]# (while true; do echo -n "My program" >> ~/output.file; done) &
+
+2. View the current jobs running in the background of your terminal.
+
+[root@localhost ~]# jobs
+[1]-  Running   ( while true; do< echo -n "My program" >> ~/output.file; done ) &
+
+3. Stop the process from running without killing the process using the kill command.
+
+[root@localhost]# kill -SIGSTOP %1 (%1 is the job number, if the job was 2 it would be %2)
+
+4. View the stopped jobs in the background.
+
+[root@localhost ~]# jobs
+
+[1]+  Stopped     ( while true; do echo -n "My program" >> ~/output.file; done ) &
+
+[root@localhost ~]#  
+
+5. Start the process again using the kill command.
+
+[root@localhost]# kill -SIGCONT %1
+
+6. Kill the process without allowing any blocking of the kill command.
+
+[root@localhost]# kill -SIGKILL %1
+
+Exercise 2:
+
+1. Download and install the httpd service.
+
+[root@localhost]# yum install httpd
+
+2. Start the httpd service (or ensure that it is running).
+
+[root@localhost]# systemctl start httpd
+
+3. As the root user, grep for all processes that are running as the root user and display the process names.
+
+[root@localhost]# pgrep -u root -l
+
+4. As the user "user", start the "vi" program at the terminal.
+
+[user@localhost]# vi
+
+5. As the root user, in your second terminal window grep for all processes running under the user "user".
+
+[root@localhost ~]# pgrep -u user -l vi
+3690 dconf-service
+3694 vim
+
+6. As the root user, grep for the httpd process.
+
+[root@localhost]# pgrep httpd
+
+7. As the root user, kill all of the user "user"'s processes and boot that user from the system.
+
+[root@localhost ~]# w
+ 14:15:59 up 20:55,  4 users,  load average: 0.00, 0.01, 0.05
+USER     TTY        LOGIN@   IDLE   JCPU   PCPU WHAT
+user pts/0     Mon22    2:58m  0.05s  0.05s bash
+[root@localhost ]# pkill -t pts/0 
+
+This will kill every process started from the user's terminal but it will not boot the user. Now find all 
+running processes left which should either be bash or ssh.
+
+[root@localhost]# pgrep -u user
+[root@localhost]# pkill -u user ssh
+or 
+[root@localhost]# pkill ssh
