@@ -1,0 +1,105 @@
+1. Attach a LinuxAcademy.com external device (mount) to the lab server.
+
+2. Create two partitions 500M each on the device.
+
+[root@localhost dev]# fdisk /dev/xvdfWelcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+
+Be careful before using the write command.
+
+ 
+
+Command (m for help): n
+
+Partition type:
+
+   p   primary (0 primary, 0 extended, 4 free)
+
+   e   extended
+
+Select (default p): 
+
+Using default response p
+
+Partition number (1-4, default 1): 
+
+First sector (2048-2097151, default 2048):  
+
+Using default value 2048
+
+Last sector, +sectors or +size{K,M,G} (2048-2097151, default 2097151): +500M
+
+Partition 1 of type Linux and of size 500 MiB is set
+
+ 
+
+Command (m for help): n
+
+Partition type:
+
+   p   primary (1 primary, 0 extended, 3 free)
+
+   e   extended
+
+Select (default p): 
+
+Using default response p
+
+Partition number (2-4, default 2): 
+
+First sector (1026048-2097151, default 1026048): 
+
+Using default value 1026048
+
+Last sector, +sectors or +size{K,M,G} (1026048-2097151, default 2097151): +500M
+
+Partition 2 of type Linux and of size 500 MiB is set
+
+ 
+
+Command (m for help): w
+
+The partition table has been altered!
+
+ 
+
+Calling ioctl() to re-read partition table.
+
+Syncing disks.
+
+[root@localhost dev]# 
+
+3. On the xvdf1 partition create an XFS file system.
+
+[root@localhost dev]# mkfs -t xfs xvdf1
+
+4. On the xvdf2 partition create an EXT4 file system.
+
+[root@localhost dev]# mkfs -t ext4  xvdf2
+
+5. On the xvdf1 partition label the filesystem as "filesystem1".
+
+[root@localhost dev]# xfs_admin -L "filesystem1" /dev/xvdf1
+
+[root@localhost dev]# xfs_admin -l /dev/xvdf1
+
+label = "filesystem1"
+
+6. On the xvdf2 partition label the filesystem as "filesystem2".
+
+[root@localhost dev]# tune2fs -L "filesystem2" /dev/xvdf2
+
+or
+
+[root@localhost dev]# e2label /dev/xvdf2
+
+filesystem2
+
+7. Create a persistent mount in the /etc/fstab file with defaults as the mount option for the xvdf1 partition and use the mount point /mnt/mount1.
+
+LABEL=filesystem1 /mnt/mount1 xfs defaults 1 2 
+
+8. Create a persistent mount in the /etc/fstab file with defaults as the mount option for the xvdf2 partition and use the mount /mnt/mount2. Set the fsck check to 2 and the dump to 1.
+
+LABEL=filesystem2 /mnt/mount2 ext4 defaults 1 2 
