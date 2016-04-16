@@ -1,0 +1,82 @@
+
+
+1) What would you edit in order to ensure that all new users have a password expiration of 30 days?
+
+Correct
+Correct answer
+
+/etc/login.defs file and the PASS_MAX_DAYS to 30
+
+2) Which package is required for using the realm command when joining/discovering available SSSO domains?
+
+Correct
+Correct answer
+
+yum install -y realmd
+
+3) Red Hat 7 UID for the root account is:
+
+Correct
+
+4) What UID ranges are reserved for regular users?
+
+Correct
+Correct answer
+
+1000+
+
+5) Which UID ranges are reserved for system users? Or users used by the system for processes that do not own files on the file system?
+
+Correct
+Correct answer
+
+201-999
+
+6) Which command would be used to add a supplementary group called developers to the user jeff? Note: Jeff already has supplementary groups and he needs to stay a member of those groups.
+
+Correct
+Correct answer
+
+usermod -aG developers jeff
+
+7) The UID range for Red Hat assigned system users is:
+
+Correct
+Correct answer
+
+1-200
+
+8) Which flag (argument), when passed to the chage command, will force a user to change their password every 30 days?
+
+Correct
+Correct answer
+
+-M
+
+9) Given the domain "ad.linuxacademy.com", which command will discovery if the domain exists and return the packages needed to be installed?
+
+Correct
+Correct answer
+
+realm discover ad.linuxacademy.com
+
+10) Which flag (argument), when passed to the useradd command, will set the supplemental group for a user?
+
+Correct
+Correct answer
+
+-G
+
+11) Which command will set the expire date for the user jeff to be 90 days from today?
+
+Correct
+Correct answer
+
+chage -E $(date -d "+90days" +%F) jeff
+
+12) Which command would you use to set the maximum amount of time between password changes for the user jeff to 60 days?
+
+Correct
+Correct answer
+
+chage -M 60 jeff
