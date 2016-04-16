@@ -1,0 +1,73 @@
+This lab utilized the Linux Academy lab server "mount" feature to work with partitions.
+
+Master Boot Record partitions are partitions managed with fdisk. MBR partitions have been in use for many years and are slowly being replaced with GPT partitions. MBR partitions can only have 4 primary partitions up to 2 TiB in size each. This is a severe limitation in today's environments, where 2 TiB is not a lot of data. However, MBR is used on servers still today.
+
+1. Start a Red Hat 7 lab server and "mount" a new disk. Once completed, log into the system and navigate to the /dev directory.
+
+    cd /dev
+
+2. Create a primary Linux partition that is 500M in size on the attached disk.
+
+    fdisk xvdf
+
+    Command (m for help): n
+    Partition type:    p   primary (0 primary, 0 extended, 4 free)    e   extended Select (default p): p
+    Partition number (1-4, default 1):
+    First sector (2048-2097151, default 2048):
+    Using default value 2048
+    Last sector, +sectors or +size{K,M,G} (2048-2097151, default 2097151): +500M
+    Partition 1 of type Linux and of size 500 MiB is set
+    Command (m for help): 
+
+3. Set the partition type for a basic Linux volume.
+
+    Command (m for help): t
+    Selected partition 1 Hex code (type L to list all codes): 83
+
+    Changed type of partition 'Linux' to 'Linux' (notice the default is already Linux).
+
+4. Write changes and exit.
+
+    Command (m for help): w
+    The partition table has been altered! Calling ioctl() to re-read partition table. Syncing disks.
+
+5. Issue the command to list the block device and it's UUID (Universally Unique Identifier).
+
+    blkid
+
+6. Create an XFS filesystem on the disk.
+
+    mkfs -t xfs /dev/xvdf1
+
+7. Mount the partition to /mnt/mymount.
+
+    mkdir /mnt/mymount
+    mount /dev/xvdf1 /mnt/mymount
+    df -h
+
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/xvda2      6.0G  3.9G  2.1G  65% /
+    devtmpfs        482M     0  482M   0% /dev
+    tmpfs          497M     0  497M   0% /dev/shm
+    tmpfs           497M   13M  484M   3% /run
+    tmpfs          497M     0  497M   0% /sys/fs/cgroup
+    /dev/xvdf1 497M   26M  472M   6% /mnt/mymount
+
+8. Configure the disk to mount to the /mnt/mymount mount point automatically during system boot.
+
+    blkid
+    /dev/xvdf1: UUID="" TYPE="xfs" 
+
+    vim fstab
+    UUID="your uuid here" /mnt/mymount xfs defaults 1 1
+
+    umount /mnt/mymount
+    mount -a
+    df -h
+
+    Filesystem Size Used Avail Use% Mounted on
+    /dev/xvda2 6.0G 3.9G 2.1G 65% /
+    devtmpfs 482M 0 482M 0% /dev
+    tmpfs 497M 13M 484M 3% /run
+    tmpfs 497M 0 497M 0% /sys/fs/cgroup
+    /dev/xvdf1 497M 26M 472M 6% /mnt/mymount
