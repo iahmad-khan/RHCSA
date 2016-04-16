@@ -1,0 +1,91 @@
+1. Start a Red Hat 7 LinuxAcademy.com lab server and "mount" a new disk. Once completed, log into the system and navigate to the /dev directory.
+
+[root@localhost]# cd /dev
+
+2. Create a primary Linux partition that is 500M in size on the attached disk.
+
+[root@anthony1 dev]# gdisk xvdf
+
+GPT fdisk (gdisk) version 0.8.6
+
+Partition table scan:
+
+  MBR: not present
+
+  BSD: not present
+
+  APM: not present
+
+  GPT: not present
+
+Creating new GPT entries.
+
+Command (? for help): n
+
+Partition number (1-128, default 1): 
+
+First sector (34-2097118, default = 2048) or {+-}size{KMGTP}: 
+
+Last sector (2048-2097118, default = 2097118) or {+-}size{KMGTP}: +500M
+
+Current type is 'Linux filesystem'
+
+Hex code or GUID (L to show codes, Enter = 8300): 8300
+
+Changed type of partition to 'Linux filesystem'
+
+3. Write changes and exit.
+
+Command (? for help): w
+
+Final checks complete. About to write GPT data. THIS WILL OVERWRITE EXISTING
+
+PARTITIONS!!
+
+Do you want to proceed? (Y/N): Y
+
+OK; writing new GUID partition table (GPT) to xvdf.
+
+The operation has completed successfully.
+
+4. Issue the command to list the block device and it's UUID (Universally Unique IDentifier).
+
+[root@localhost dev]# blkid
+
+5. Create an XFS filesystem on the disk.
+
+[root@localhost dev]# mkfs -t xfs /dev/xvdf1.
+
+6. Mount the partition to /mnt/mymount.
+
+[root@localhost dev]# mkdir /mnt/mymount
+
+[root@localhost dev]# mount /dev/xvdf1 /mnt/mymount
+
+7. Configure the disk to mount automatically during system boot to the /mnt/mymount mount point.
+
+[root@localhost dev]# blkid
+
+/dev/xvdf1: UUID="" TYPE="xfs" 
+
+[root@anthony1 dev]# vim /etc/fstab 
+
+UUID="your uuid here" /mnt/mymount        xfs     defaults 1 1
+
+[root@anthony1 dev]# umount /mnt/mymount
+
+[root@anthony1 dev]# mount -a
+
+[root@anthony1 dev]# df -h
+
+Filesystem      Size  Used Avail Use% Mounted on
+
+/dev/xvda2      6.0G  3.9G  2.1G  65% /
+
+devtmpfs        482M     0  482M   0% /dev
+
+tmpfs           497M   13M  484M   3% /run
+
+tmpfs           497M     0  497M   0% /sys/fs/cgroup
+
+/dev/xvdf1      497M   26M  472M   6% /mnt/mymount
