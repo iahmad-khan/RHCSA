@@ -1,0 +1,61 @@
+1. Download and install the apache web server.
+
+[root@localhost ~]# yum install httpd
+
+2. Modify the /etc/httpd/conf/httpd.conf configuration file and replace /var/www/html with /content. Create the /content directory and then create a static index.html file in the /content directory that says "this is my website".
+
+[root@localhost ~]# sed -i 's/\/var\/www\/html/\/content/' /etc/httpd/conf/httpd.conf
+
+[root@localhost ~]# vim /etc/httpd/conf/httpd.conf then find and replace /var/www/html with /content
+
+[root@localhost ~]# mkdir -p
+
+[root@localhost ~]# echo "this is my website" > /content/index.html
+
+3. Using sed, modify the /etc/httpd/conf.d/userdir.conf directory and replace UserDir disabled with UserDir public_html.
+
+[root@localhost ~]# sed -i 's/disabled/public_html/' /etc/httpd/conf.d/userdir.conf 
+
+or 
+
+Manually modify the /etc/httpd/conf.d/userdir.conf
+
+4. Create the public_html directory in the /home/user directory. Echo a simple html file with the text "this is my website" into the /home/user/public_html/index.html file.
+
+ [root@localhost ~]# mkdir /home/user/public_html
+
+[root@localhost ~]# echo "this is my website" > /home/user/public_html/index.html
+
+5. Set the user owner and group owner of the /home/user directory to "user". Set permissions to 711 /home/user and 755 recursively on /home/user/public_html.
+
+[root@localhost ~]# chmod 711 /home/user
+
+[root@localhost ~]# chmod 755 -R /home/user/public_html
+
+[root@localhost ~]# chown user:user -R /home/user/public_html
+
+6. Make the /content directory and restart the httpd service.
+
+[root@localhost ~]# systemctl restart httpd
+
+7.  Install the correct packages for troubleshooting SELinux policy denials and violations.
+
+[root@localhost ~]# yum install -y setroubleshoot-server
+
+8. Copy your IP address and attempt to open the index.html file in your browser. Troubleshoot using the proper SELinux troubleshooting package what may be causing the issue. Once you have determined the issue, implement a solution to fix the policy violation.
+
+[root@localhost ~]# sealert -a /var/log/audit/audit.log 
+
+[root@localhost ~]# semanage fcontext -a -t httpd_sys_content_t '/content(/.*)?'
+
+[root@localhost ~]# restorecon -Rv /content
+
+restorecon reset /content context unconfined_u:object_r:default_t:s0->unconfined_u:object_r:httpd_sys_content_t:s0
+
+restorecon reset /content/index.html context unconfined_u:object_r:default_t:s0->unconfined_u:object_r:httpd_sys_content_t:s0
+
+9. Attempt to open the user "user"'s homedir via the web browser. If permission is denied, troubleshoot the issue using the proper SELinux troubleshooting tools. Once the issue is discovered, implement a persistent fix and try again.
+
+[root@localhost ~]# sealert -a /var/log/audit/audit.log
+
+[root@localhost ~]# setsebool -P httpd_enable_homedirs on
