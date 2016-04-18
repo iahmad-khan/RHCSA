@@ -1,0 +1,109 @@
+1. Using the yum config manager, enable the epel repository without gpg.
+
+yum-config-manager --add-repo=http://dl.fedoraproject.org/pub/epel/7/x86_64/
+
+[root@anthony1 ~]# yum-config-manager --add-repo=http://dl.fedoraproject.org/pub/epel/7/x86_64/
+
+2. View and verify that the repository is in fact enabled on the system.
+
+[root@anthony1 ~]# yum repolist 
+
+Loaded plugins: amazon-id, rhui-lb
+
+repo id                                                          repo name                                                                  status
+
+dl.fedoraproject.org_pub_epel_7_x86_64_                          added from: http://dl.fedoraproject.org/pub/epel/7/x86_64/                 7,753
+
+rhui-REGION-rhel-server-rh-common/7Server/x86_64                 Red Hat Enterprise Linux Server 7 RH Common (RPMs)                           131
+
+repolist: 7,884
+
+3. Using yum config manager, disable the epel repository.
+
+[root@anthony1 ~]# yum-config-manager --disable dl.fedoraproject.org_pub_epel_7_x86_64_
+
+4. Verify the repository is disabled.
+
+[root@anthony1 ~]# yum repolist
+
+5. Using yum config manager, delete the repository from the system.
+
+There is not a command for removing the repository only disabling.
+
+[root@anthony1 yum.repos.d]# rm -rf /etc/yum.repos.d/dl.fedoraproject.org_pub_epel_7_x86_64_.repo 
+
+6. Instead of using config manager, manually create the repo config file and enable the repository with the repo name "fedora-epel.repo".
+
+[root@anthony1 yum.repos.d]# vim /etc/yum.repos.d/fedora-epel.repo
+
+[EPEL]
+
+name=Fedora EPEL 7
+
+baseurl=http://dl.fedoraproject.org/pub/epel/7/x86_64/
+
+enable=1
+
+gpgcheck=0
+
+7. View and verify that the repository is in fact enabled on the system.
+
+[root@anthony1 yum.repos.d]# yum repolist
+
+Loaded plugins: amazon-id, rhui-lb
+
+EPEL                                                                                                                       | 4.4 kB  00:00:00     
+
+(1/2): EPEL/group_gz                                                                                                       | 257 kB  00:00:00     
+
+(2/2): EPEL/primary_db                                                                                                     | 4.2 MB  00:00:01     
+
+(1/2): EPEL/updateinfo                                                                                                     | 370 kB  00:00:00     
+
+(2/2): EPEL/pkgtags                                                                                                        | 1.4 MB  00:00:00     
+
+repo id                                                              repo name                                                              status
+
+EPEL                                                                 Fedora EPEL 7                                                          7,753
+
+rhui-REGION-rhel
+
+8. Download the GPG key from the epel repository and configure the .repo file to use the GPG key
+
+[root@localhost]# cd /etc/pki/rpm-gpg; wget https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
+
+[root@localhost]# vim /etc/yum.repos.d/dl.fedoraproject.org_pub_epel_7_x86_64_.repo
+
+[dl.fedoraproject.org_pub_epel_7_x86_64_]
+
+name=added from: http://dl.fedoraproject.org/pub/epel/7/x86_64/
+
+baseurl=http://dl.fedoraproject.org/pub/epel/7/x86_64/
+
+enabled=1
+
+gpgcheck=1
+
+ 
+
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+
+Note: You can also take the URL of the gpg key and import it with the rpm command [root@localhost]# rpm --import https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
+
+9. Disable the repository on the system and verify that it is disabled.
+
+[EPEL]
+
+name=Fedora EPEL 7
+
+baseurl=http://dl.fedoraproject.org/pub/epel/7/x86_64/
+
+enable=0
+
+gpgcheck=0
+
+[root@anthony1 yum.repos.d]# yum repolist
+
+10. Remove the repository from the system.
+
+[root@anthony1 yum.repos.d]# rm -rf /etc/yum.repos.d/dl.fedoraproject.org_pub_epel_7_x86_64_.repo 
