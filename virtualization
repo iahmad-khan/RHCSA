@@ -1,4 +1,5 @@
-1. Download and install the proper packages in order to manage virtual machines on a Red Hat 7 machine. Ensure you install the GUI as well as the command line interface.
+1. Download and install the proper packages in order to manage virtual machines on a Red Hat 7 machine. 
+Ensure you install the GUI as well as the command line interface.
 
 [root@localhost]# yum install virt-manager qemu-kvm qemu-img libvirt libvirt-python python-virtinst libvirt-client
 
@@ -12,7 +13,8 @@ OR Note: This is a neat trick
 
 [root@localhost]# yum groupinstall "Virtualization Platform"
 
-Note: This will prevent you from having to memorize packages or as a backup in the exam if you forget the packages required.
+Note: This will prevent you from having to memorize packages or as a backup in the exam if you 
+forget the packages required.
 
 2. Ensure that the virtual machine services start when the system boots and is currently running.
 
