@@ -1,0 +1,102 @@
+1. Start the LinuxAcademy.com lab server and mount a new disk and ensure LVM utilities are installed on the system.
+
+[root@localhost #] yum install lvm2
+
+2. Create a partition that uses the entire disk space on /dev/xvdf.
+
+[root@localhost dev]# fdisk /dev/xvdf Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+
+Be careful before using the write command.
+
+Device does not contain a recognized partition table.
+
+Building a new DOS disklabel with disk identifier 0x0631abd7.
+
+Command (m for help): n
+
+Partition type:
+
+   p   primary (0 primary, 0 extended, 4 free)
+
+   e   extended
+
+Select (default p): 
+
+Using default response p
+
+Partition number (1-4, default 1): 
+
+First sector (2048-2097151, default 2048): 
+
+Using default value 2048
+
+Last sector, +sectors or +size{K,M,G} (2048-2097151, default 2097151): 
+
+Using default value 2097151
+
+Partition 1 of type Linux and of size 1023 MiB is set
+
+Command (m for help): t
+
+Selected partition 1
+
+Hex code (type L to list all codes): 8e
+
+Changed type of partition 'Linux' to 'Linux LVM'
+
+Command (m for help): w
+
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+
+Syncing disks.
+
+3. Create a physical volume and a new volume group named battlestar out of the /dev/xvdf1 partition.
+
+[root@localhost #] pvcreate /dev/xvdf1
+
+[root@localhost #] vgcreate battlestar /dev/xvdf1
+
+4. Create a new LVM volume that is approximately 500M in size (generally you will want it to be 2 to 2.5 times
+the size of your physical memory but this is a lab).
+
+[root@localhost dev]# lvcreate -n swap -L 500M battlestar
+
+5. Format the new LVM volume with a swap signature.
+
+[root@loclhost dev] #  mkswap /dev/battlestar/swap
+
+Setting up swapspace version 1, size = 511996 KiB
+
+no label, UUID=679ea5a2-c652-458a-8726-6e3970d1f58f // (Note use your UUID provded not the one here)
+
+6. Add an entry into the /etc/fstab file using the UUID of the LVM device to create a persistent swap mount.
+
+#
+
+# /etc/fstab
+
+UUID=668dbd02-c201-44bc-be76-f606fc9ab8db /                       xfs     defaults        1 1
+
+UUID=679ea5a2-c652-458a-8726-6e3970d1f58f swap swap defaults 0 0 
+
+7. Run the swapon command that enables all swap entires in the /etc/fstab file.
+
+[root@localhost dev]# swapon -a
+
+8. Verify swap space is working.
+
+[root@localhost dev]# free -m
+
+or
+
+[root@localhost dev]# swapon -s
+
+[root@localhost dev]# cat /proc/swaps
+
+9. Reboot and test.
+
+[root@localhost dev]# reboot
