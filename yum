@@ -1,0 +1,39 @@
+1. Updating your system is an important part of being a systems administrator. However, sometimes just blindly performing a "yum update" on your system to update all packages is ill advised. Issue the proper command to view all packages that have an available update, but do not update all packages.
+
+ [root@localhost ~]# yum check-update
+
+2. Search the yum repository for the Apache web server.
+
+[root@localhost ~]# yum search apache http server
+
+3. View information about the Apache web server package.
+
+[root@localhost ~]# yum info httpd
+
+4. Download and install the Apache web server.
+
+[root@localhost ~]# yum install httpd
+
+5. List the installed packages and verify the Apache web server is in fact installed.
+
+[root@localhost ~]# yum list installed httpd
+
+or
+
+[root@localhost ~]# yum list installed | grep httpd
+
+6. Issue the proper command to show all packages that provide the /var/www/html directory.
+
+[root@localhost ~]# yum provides /var/www
+
+or
+
+[root@localhost ~]# yum whatprovides /var/www
+
+7. Issue the command to update the Apache web server package.
+
+[root@localhost ~]# yum update httpd
+
+8. Remove the Apache web server package. 
+
+[root@localhost ~]# yum remove httpd 
