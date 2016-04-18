@@ -1,0 +1,43 @@
+1. Login to the lab server and determine which timezone should be used based on your location.
+
+[root@localhost]# tzselect 
+
+or 
+
+[root@localhost]# timedatectl list-timezones
+
+2. Update the system's timezone to reflect the selected timezone.
+
+[root@localhost]# timedatectl set-timezone American/Chicago
+
+3. Update the systemtime to match your current local time.
+
+[root@localhost]# timedatectl set-time 02:00:00
+
+4. Display current time and date information.
+
+[root@localhost]# timedatectl
+
+5. Update the NTP time services to be 0.pool.ntp.org, 1.pool.ntp2.org, 2.pool.ntp.org, and 3.pool.ntp.org.
+
+[root@localhost]# vim /etc/chrony.conf
+
+# Use public servers from the pool.ntp.org project.
+
+# Please consider joining the pool (http://www.pool.ntp.org/join.html).
+
+server 0.pool.ntp.org iburst
+
+server 1.pool.ntp.org iburst
+
+server 2.pool.ntp.org iburst
+
+server 3.pool.ntp.org iburst
+
+6. Apply the changes to the chronyd service.
+
+[root@localhost]# systemctl restart chronyd
+
+7. Verify the new time servers are properly working with chronyd.
+
+[root@localchost] chronyc sources -v
