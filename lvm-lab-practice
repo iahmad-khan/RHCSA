@@ -1,0 +1,43 @@
+60  cd /dev
+   61  ls
+   62  fdisk /dev/xvdf
+   63  gdisk /dev/xvdf
+   64  gdisk /dev/xvdg
+   66  pvcreate /dev/xvdf1 /dev/xvdg1
+   67  vgdisplay 
+   68  pvdisplay 
+   69  vgcreate battlestar /dev/xvdf1 /dev/xvdg1
+   70  vgs
+   71  vgdisplay 
+   72  vgdisplay -vv
+   73  vgdisplay -v
+   74  lvcreate -n  ijazlv -L 20G battlestar 
+   75  lvs
+   76  cd battlestar/
+   77  ls
+   78  ls -al
+   80  file ijazlv
+   81  mkfs.xfs ijazlv 
+   82  mkdir /mnt/mydir
+   83  mount ijazlv /mnt/mydir/
+   84  cd /mnt/mydir/
+   85  ls
+   86  touch file1
+   87  touch file2
+   88  touch file4
+   89  ls
+   90  df -h
+   91  gdisk /dev/xvdj
+   92  partprobe 
+   93  pvcreate /dev/xvdj1
+   94  vgextend battlestar /dev/xvdj1
+   95  vgs
+   96  vgdisplay 
+   97  vgdisplay -v
+   98  lvextend -L 59G /dev/battlestar/ijazlv 
+  100  lvs
+  102  lvdisplay 
+  103  df -h
+  104  xfs_growfs /mnt/mydir/
+  105  df -h
+  106  exit
