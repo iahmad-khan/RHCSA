@@ -1,0 +1,22 @@
+   62  fdisk /dev/xvdf
+   63  pvcreate /dev/xvdf1
+   64  vgcreate battlestar /dev/xvdf1
+   65  lvcreate -n mylv -L 1G battlestar 
+   66  lvs
+   67  lvdisplay 
+   69  mkfs -t xfs /dev/battlestar/mylv
+   70  mkdir /mnt/mydir
+   71  mount /dev/battlestar/mylv /mnt/mydir
+   72  cd /mnt/mydir/
+   74  touch file{1,2,3,4,5}
+   75  ls
+   76  gdisk /dev/xvdg
+   77  pvcreate /dev/xvdg1
+   78  vgextend battlestar /dev/xvdg1
+   79  vgs
+   80  vgdisplay -v
+   81  pvmove /dev/xvdf1 
+   82  vgreduce battlestar /dev/xvdf1 
+   83  ls
+   84  ls /mnt/mydir/
+   85  exit
