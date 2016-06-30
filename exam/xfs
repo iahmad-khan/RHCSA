@@ -1,0 +1,7 @@
+Extend the existing xfs file system to a total size of 200MB and add a label called myFS.
+
+# lvextend –size 200M -r /dev/vg/lv_xfs
+or # lvextend –size +100M -r /dev/vg/lv_xfs
+# umount /xfs
+# xfs_admin -L “myFS” /dev/vg/lv_xfs
+# mount /xfs
