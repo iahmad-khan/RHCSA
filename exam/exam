@@ -1,0 +1,99 @@
+Assign the same SELinux contexts used by the home directories to the /xfs directory permanently.
+
+# yum install -y setroubleshoot-server
+# semanage fcontext -a -t user_home_dir_t “/xfs(/.*)?”
+# restorecon -R /xfs
+
+
+Create two users: john with uid/gid equal to 2000, password 12345678 and davis with uid/gid equal to 3000,
+password 87654321. Make davis‘ account validity stopping in one month.
+
+# useradd -u 2000 john
+# passwd john
+New password: 12345678
+# useradd -u 3000 davis
+# passwd davis
+New password: 87654321
+# date -d “+1month”
+# usermod -e YYYY-MM-DD davis
+or # chage -E YYYY-MM-DD davis
+# chage -l davis
+
+Allow davis (and only davis) to get full access to john‘s home directory.
+
+# setfacl -R -m u:davis:rwx /home/john
+
+Create a directory named /common. Allow john and davis to share documents in the /common directory using a 
+group called team. Both of them can read, write and remove documents from the other 
+in this directory but any user not member of the group can’t.
+
+# mkdir /common
+# groupadd -g 50000 team
+# chgrp team /common
+# chmod 2770 /common
+# usermod -aG team john
+# usermod -aG team davis
+
+
+Create a xfs file system on a new logical volume of 100MB called lv_xfs. Mount it permanently with uuid under /xfs.
+
+# lvcreate –size 100M –name lv_xfs /dev/vg
+# mkfs.xfs /dev/vg/lv_xfs
+# mkdir /xfs
+# blkid | grep lv_xfs >> /etc/fstab
+# vi /etc/fstab
+UUID=… /xfs xfs defaults 1 2
+# mount -a
+
+Write a Bash script called prog.sh in the /root directory that creates 40 files of 2MB each with the fallocate command in the
+mounted /xfs directory. Each file has got a name as follows: .file_N where N is a number from 1 to 40.
+
+cd /root
+vi prog.sh
+#!/bin/bash
+
+cd /xfs
+N=40
+while [ “$N” -gt 0 ]
+do
+fallocate -l 2M .file_$N
+N=`expr $N – 1`
+done
+——————–
+# chmod u+x prog.sh
+# ./prog.sh
+
+
+Create an ext4 file system on a new logical volume of 100MB called lv_ext4. Mount it permanently
+under the /ext4 directory. Copy the files previously created into this new space.
+
+# lvcreate –size 100M –name lv_ext4 /dev/vg
+# mkfs.ext4 /dev/vg/lv_ext4
+# mkdir /ext4
+# vi /etc/fstab
+/dev/vg/lv_ext4 /ext4 ext4 defaults 1 2
+# cp -p /xfs/.f* /ext4
+
+
+Configure a virtual console
+# grubby –update-kernel=ALL –args=”console=ttyS0″
+
+Create a logical volume of 200MB called lv_swap2 and add it permanently to the current swap space.
+
+# lvcreate –size 200M –name lv_swap2 /dev/vg
+# mkswap /dev/vg/lv_swap2
+# swapon /dev/vg/lv_swap2
+vi /etc/fstab
+/dev/vg/lv_swap2 swap swap defaults 0 0
+
+
+Create a cron job running as root, starting at 11PM every day and writing a 
+report on daily system resource consumption in the /var/log/consumption.log file.
+# crontab -e
+00 23 * * * /usr/bin/sar -A > /var/log/consumption.log
+
+Set the default target to boot into X Window level (previously level 5).
+systemctl set-default graphical.target
+
+Change the hostname to mycentos.example.com
+hostnamectl set-hostname mycentos.example.com
